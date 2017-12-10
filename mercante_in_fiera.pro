@@ -4,10 +4,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     mazzo.cpp \
-    cartaobject.cpp \
     labelobject.cpp \
-    qmlstring.cpp \
-    qmlint.cpp
+    cartavincentemodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,9 +17,7 @@ include(deployment.pri)
 
 HEADERS += \
     mazzo.h \
-    cartaobject.h \
     labelobject.h \
-    qmlstring.h \
-    qmlint.h
+    cartavincentemodel.h
 
 DISTFILES +=

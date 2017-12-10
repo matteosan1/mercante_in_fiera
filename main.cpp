@@ -3,25 +3,29 @@
 #include <QQmlContext>
 
 #include "mazzo.h"
-#include "qmlstring.h"
-#include "qmlint.h"
+#include "cartaobject.h"
+#include "cartavincentemodel.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     Mazzo m("/Users/sani/mercante_in_fiera/mazzo.txt");
 
-    QmlString back(m.back());
-    QmlInt nCarte(m.nCarte());
-    QmlInt nVincenti(m.carteVincenti());
+
+    CartaVincenteModel carteVincentiModel;
+    for (int i=0; i<m.carteVincenti().size(); i++) {
+        carteVincentiModel.addCarta(CartaVincente(m.carteVincenti().at(i), m.back(), 0));
+    }
+
+    CartaVincenteModel carteModel;
+    for (int i=0; i<m.carte().size(); i++) {
+        carteModel.addCarta(CartaVincente(m.carte().at(i), m.back(), i));
+    }
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("carte", QVariant::fromValue(m.carte()));
     engine.rootContext()->setContextProperty("etichette", QVariant::fromValue(m.labels()));
-    engine.rootContext()->setContextProperty("vincenti", QVariant::fromValue(m.vincenti()));
-    engine.rootContext()->setContextProperty("retro", &back);
-    engine.rootContext()->setContextProperty("ncarte", &nCarte);
-    engine.rootContext()->setContextProperty("nvincenti", &nVincenti);
+    engine.rootContext()->setContextProperty("carteVincentiModel", &carteVincentiModel);
+    engine.rootContext()->setContextProperty("carteModel", &carteModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

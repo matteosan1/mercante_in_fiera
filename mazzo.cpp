@@ -15,7 +15,7 @@
 
 #define SEED std::chrono::system_clock::now().time_since_epoch().count()
 
-Mazzo::Mazzo(const QString& filename)//, QObject *parent)// : QAbstractListModel(parent)
+Mazzo::Mazzo(const QString& filename)
 {
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly)) {
@@ -64,12 +64,13 @@ Mazzo::Mazzo(const QString& filename)//, QObject *parent)// : QAbstractListModel
         labels << "PRIMO" << "SECONDO" << "TERZO" << "QUARTO" << "QUINTO" << "SESTO";
 
         for (int i=0; i<carteVincenti; i++) {
-            m_vincenti.append(new CartaObject(carteTmp.at(i), i));
+            m_carte_vincenti.append(carteTmp.at(i));
+
             m_label.append(new LabelObject(labels.at(i), i));
         }
 
         for (int i=carteVincenti; i<carteTmp.size(); i++) {
-            m_carte.append(new CartaObject(carteTmp.at(i), i-carteVincenti));
+            m_carte.append(carteTmp.at(i));
         }
 
         m_back = back;

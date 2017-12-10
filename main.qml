@@ -27,31 +27,30 @@ ApplicationWindow {
         Repeater {
             anchors.top: parent.top
             id: repeater
-            model : carte
-            delegate:
-                Carta {
-                id: delegate
-                    source: modelData.name
-                    backSource: retro.string
-                    angle: 180
-                    yAxis: 1
-                    xPos: parent.width/3.
-                    yPos: 20
-                    zPos: modelData.index
-                    onScopri: {
-                       root.carteScoperte++
-                        if (root.carteScoperte == ncarte.integer) {
-                            for (var i=0; i<nvincenti.integer; i++)
-                                repeater2.itemAt(i).blocked = false
-                        }
+            model : carteModel
+            Carta {
+            id: delegate
+                source: fronte
+                backSource: retro
+                angle: 180
+                yAxis: 1
+                xPos: parent.width/3.
+                yPos: 20
+                zPos: index
+                onScopri: {
+                   root.carteScoperte++
+                    if (root.carteScoperte == carteModel.rowCount()) {
+                        for (var i=0; i<carteVincentiModel.rowCount(); i++)
+                            repeater2.itemAt(i).blocked = false
                     }
-                    onCopri:  {
-                        root.carteScoperte--
-                        if (root.carteScoperte != ncarte.integer) {
-                            for (var i=0; i<nvincenti.integer; i++)
-                                repeater2.itemAt(i).blocked = true
-                        }
+                }
+                onCopri:  {
+                    root.carteScoperte--
+                    if (root.carteScoperte != carteModel.rowCount()) {
+                        for (var i=0; i<carteVincentiModel.rowCount(); i++)
+                            repeater2.itemAt(i).blocked = true
                     }
+                }
             }
         }
 
@@ -62,38 +61,38 @@ ApplicationWindow {
             anchors.bottomMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
-            columns: nvincenti.integer
+            columns: carteVincentiModel.rowCount()
             spacing: 50
             Repeater {
                 id: repeater2
-                model : vincenti
-                delegate:
-                        CartaVincente {
-                            id: delegate1
-                            source: modelData.name
-                            backSource: retro.string
-                            angle: 180
-                            yAxis: 1
-                            xPos: 0
-                            yPos: 0
-                        }
-            }
-
-            focus: true
-            Keys.onPressed: {
-                if (event.key == Qt.Key_Return) {
-                    MyScript.createVideoObject();
-//                    for (var i=0; i<nvincenti.integer; i++) {
-//                        console.log(repeater2.itemAt(i).x)
-//                        repeater2.itemAt(i).x = 1000
-//                    }
-//                }
-//                else if (event.key == Qt.Key_Space) {
-//                    for (var i=0; i<nvincenti.integer; i++) {
-//                        repeater2.itemAt(i).x = 0
-//                    }
+                model : carteVincentiModel
+                CartaVincente {
+                    id: delegate1
+                    source: fronte
+                    backSource: retro
+                    angle: 180
+                    yAxis: 1
+                    xPos: 0
+                    yPos: 0
                 }
             }
+
+
+//            focus: true
+//            Keys.onPressed: {
+//                if (event.key == Qt.Key_Return) {
+//                    MyScript.createVideoObject();
+////                    for (var i=0; i<nvincenti.integer; i++) {
+////                        console.log(repeater2.itemAt(i).x)
+////                        repeater2.itemAt(i).x = 1000
+////                    }
+////                }
+////                else if (event.key == Qt.Key_Space) {
+////                    for (var i=0; i<nvincenti.integer; i++) {
+////                        repeater2.itemAt(i).x = 0
+////                    }
+//                }
+//            }
 
             Repeater {
                 id: repeater3
