@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Carta.qml</file>
+        <file>Mazzo.qml</file>
+        <file>CartaVincente.qml</file>
+        <file>panno1.jpeg</file>
+        <file>Clock.qml</file>
+        <file>center.png</file>
+        <file>clock-night.png</file>
+        <file>clock.png</file>
+        <file>hour.png</file>
+        <file>minute.png</file>
+        <file>second.png</file>
+        <file>Globals.qml</file>
+        <file>panno2.jpeg</file>
+    </qresource>
+</RCC>
