@@ -52,6 +52,18 @@ ApplicationWindow {
                     }
                 }
             }
+            Text {
+                id: label1
+                text: "PUPPA"
+            }
+        }
+
+        focus: true
+        Keys.onPressed: {
+            if (event.key == Qt.Key_Space) {
+                carteVincentiModel.smazza()
+                carteModel.smazza()
+            }
         }
 
         Grid {
@@ -61,7 +73,7 @@ ApplicationWindow {
             anchors.bottomMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
-            columns: carteVincentiModel.rowCount()
+            columns: 3//carteVincentiModel.rowCount()
             spacing: 50
             Repeater {
                 id: repeater2
@@ -75,8 +87,10 @@ ApplicationWindow {
                     xPos: 0
                     yPos: 0
                 }
+//                carteVincentiModel.onDone: {
+//                    repeater3.visible = true
+//                }
             }
-
 
 //            focus: true
 //            Keys.onPressed: {
@@ -93,25 +107,36 @@ ApplicationWindow {
 ////                    }
 //                }
 //            }
+        }
+
+        Grid {
+            id: row2
+            horizontalItemAlignment: Grid.AlignHCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            columns: 3//carteVincentiModel.rowCount()
+            spacing: 150
 
             Repeater {
                 id: repeater3
                 model: etichette
-                delegate:
-                    Rectangle {
-                        id: label
-                        width: 120
-                        height: 30
-                        color: "transparent"
-                        Text {
-                            anchors.horizontalCenter: label.horizontalCenter
-                            anchors.verticalCenter: label.verticalCenter
-                            text: modelData.name + " PREMIO"
-                            font.bold: true
-                            color: "gold"
-                        }
+                Rectangle {
+                    id: label
+                    width: 120
+                    height: 30
+                    color: "transparent"
+                    Text {
+                        anchors.horizontalCenter: label.horizontalCenter
+                        anchors.verticalCenter: label.verticalCenter
+                        text: modelData.name + " PREMIO"
+                        font.bold: true
+                        color: "gold"
+                    }
                 }
             }
+
         }
     }
 }

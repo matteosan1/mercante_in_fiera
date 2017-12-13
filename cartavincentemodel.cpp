@@ -1,6 +1,7 @@
 #include "cartavincentemodel.h"
 
 //#include <QDateTime>
+#include <QDebug>
 
 CartaVincente::CartaVincente(const QString& label, const QString& back, const int& index) :
     m_label(label),
@@ -18,8 +19,10 @@ QHash<int, QByteArray> CartaVincenteModel::roleNames() const {
 }
 
 CartaVincenteModel::CartaVincenteModel(QObject* parent) :
-    QAbstractListModel(parent)
+    QAbstractListModel(parent),
+    m_globalIndex(0)
 {
+    QObject::connect(&m_timer, SIGNAL(timeout()), this, SLOT(moveCarta()));
     m_labels.clear();
     //fillData();
 }
@@ -29,6 +32,11 @@ void CartaVincenteModel::addCarta(const CartaVincente& carta)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_labels.append(carta);
     endInsertRows();
+}
+
+void CartaVincenteModel::addTmpCarta(const CartaVincente& carta)
+{
+    m_tmpLabels.append(carta);
 }
 
 int CartaVincenteModel::rowCount(const QModelIndex &parent) const
@@ -71,4 +79,21 @@ bool CartaVincenteModel::setData(const QModelIndex &index, const QVariant &value
     Q_UNUSED(role);
 
     return true;
+}
+
+void CartaVincenteModel::smazza()
+{
+    m_timer.setInterval(1000);
+    m_timer.start();
+}
+
+void CartaVincenteModel::moveCarta() {
+    m_timer.stop();
+    qDebug() << m_globalIndex << m_tmpLabels.size();
+    addCarta(m_tmpLabels.at(m_globalIndex));
+    m_globalIndex++;
+    if (m_globalIndex < m_tmpLabels.size())
+        m_timer.start();
+    else
+        emit done();
 }
