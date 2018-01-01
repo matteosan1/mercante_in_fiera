@@ -41,12 +41,12 @@ Item {
         anchors.centerIn: parent
         width: 200; height: 240
 
-        Image { id: background; source: "clock.png"; visible: clock.night == false }
-        Image { source: "clock-night.png"; visible: clock.night == true }
+        Image { id: background; source: "file:///Users/sani/mercante_in_fiera/clock_old.png"; visible: clock.night == false }
+        Image { source: "file:///Users/sani/mercante_in_fiera/clock_old.png"; visible: clock.night == true }
 
         Image {
             x: 92.5; y: 27
-            source: "hour.png"
+            source: "file:///Users/sani/mercante_in_fiera/hour_old.png"
             transform: Rotation {
                 id: hourRotation
                 origin.x: 7.5; origin.y: 73;
@@ -59,7 +59,7 @@ Item {
 
         Image {
             x: 93.5; y: 17
-            source: "minute.png"
+            source: "file:///Users/sani/mercante_in_fiera/minute_old.png"
             transform: Rotation {
                 id: minuteRotation
                 origin.x: 6.5; origin.y: 83;

@@ -2,6 +2,8 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtMultimedia 5.8
+import QtQuick.Window 2.2 // Window.FullScreen
+import QtQuick.Controls 1.3 // ApplicationWindow
 
 ApplicationWindow {
     id: mainWindow
@@ -9,6 +11,7 @@ ApplicationWindow {
     width: 1000
     height: 800
     title: qsTr("Mercante in fiera")
+    visibility: Window.FullScreen
 
     Rectangle {
         anchors.fill: parent
@@ -29,16 +32,16 @@ ApplicationWindow {
             id: repeater
             model : carteModel
             Carta {
-            id: delegate
+                id: delegate
                 source: fronte
                 backSource: retro
                 angle: 180
                 yAxis: 1
-                xPos: parent.width/3.
+                xPos: parent.width/carteVincentiModel.rowCount()
                 yPos: 20
                 zPos: index
                 onScopri: {
-                   root.carteScoperte++
+                    root.carteScoperte++
                     if (root.carteScoperte == carteModel.rowCount()) {
                         for (var i=0; i<carteVincentiModel.rowCount(); i++)
                             repeater2.itemAt(i).blocked = false
@@ -52,18 +55,6 @@ ApplicationWindow {
                     }
                 }
             }
-            Text {
-                id: label1
-                text: "PUPPA"
-            }
-        }
-
-        focus: true
-        Keys.onPressed: {
-            if (event.key == Qt.Key_Space) {
-                carteVincentiModel.smazza()
-                carteModel.smazza()
-            }
         }
 
         Grid {
@@ -73,7 +64,7 @@ ApplicationWindow {
             anchors.bottomMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
-            columns: 3//carteVincentiModel.rowCount()
+            columns: carteVincentiModel.rowCount()
             spacing: 50
             Repeater {
                 id: repeater2
@@ -87,26 +78,7 @@ ApplicationWindow {
                     xPos: 0
                     yPos: 0
                 }
-//                carteVincentiModel.onDone: {
-//                    repeater3.visible = true
-//                }
             }
-
-//            focus: true
-//            Keys.onPressed: {
-//                if (event.key == Qt.Key_Return) {
-//                    MyScript.createVideoObject();
-////                    for (var i=0; i<nvincenti.integer; i++) {
-////                        console.log(repeater2.itemAt(i).x)
-////                        repeater2.itemAt(i).x = 1000
-////                    }
-////                }
-////                else if (event.key == Qt.Key_Space) {
-////                    for (var i=0; i<nvincenti.integer; i++) {
-////                        repeater2.itemAt(i).x = 0
-////                    }
-//                }
-//            }
         }
 
         Grid {
@@ -116,7 +88,7 @@ ApplicationWindow {
             anchors.bottomMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
-            columns: 3//carteVincentiModel.rowCount()
+            columns: carteVincentiModel.rowCount()
             spacing: 150
 
             Repeater {

@@ -6,6 +6,7 @@
 #include <QByteArray>
 #include <QAbstractListModel>
 #include <QString>
+#include <QTimer>
 
 class CartaVincente
 {
@@ -44,11 +45,22 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
+    void addTmpCarta(const CartaVincente& carta);
     void addCarta(const CartaVincente& carta);
+
+public slots:
+    void smazza();
+    void moveCarta();
+
+signals:
+    void done();
 
 private:
     void fillData();
+    QList<CartaVincente> m_tmpLabels;
     QList<CartaVincente> m_labels;
+    QTimer m_timer;
+    int m_globalIndex;
 };
 
 #endif // CARTAVINCENTEMODEL_H

@@ -14,12 +14,12 @@ int main(int argc, char *argv[])
 
     CartaVincenteModel carteVincentiModel;
     for (int i=0; i<m.carteVincenti().size(); i++) {
-        carteVincentiModel.addTmpCarta(CartaVincente(m.carteVincenti().at(i), m.back(), 0));
+        carteVincentiModel.addCarta(CartaVincente(m.carteVincenti().at(i), m.back(), 0));
     }
 
     CartaVincenteModel carteModel;
     for (int i=0; i<m.carte().size(); i++) {
-        carteModel.addTmpCarta(CartaVincente(m.carte().at(i), m.back(), i));
+        carteModel.addCarta(CartaVincente(m.carte().at(i), m.back(), i));
     }
 
     QQmlApplicationEngine engine;

@@ -18,8 +18,8 @@ Flipable {
   x: xPos; y: yPos; z: zPos
   width: front.width; height: front.height
 
-  front: Image { id: frontImage }
-  back: Image { id: backImage }
+  front: Image { id: frontImage; scale: 1.1}
+  back: Image { id: backImage; scale: 1.1 }
 
   state: "back"
 
